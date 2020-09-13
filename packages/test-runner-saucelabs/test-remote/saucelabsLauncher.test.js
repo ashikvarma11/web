@@ -23,47 +23,8 @@ const sharedCapabilities = {
 it('runs tests on saucelabs', async function () {
   this.timeout(1000 * 60 * 5);
 
-  const runner = await runTests(
-    {
-      browsers: [
-        // sauceLabsLauncher({
-        //   ...sharedCapabilities,
-        //   browserName: 'chrome',
-        //   browserVersion: 'latest',
-        //   platformName: 'Windows 10',
-        // }),
-        // sauceLabsLauncher({
-        //   ...sharedCapabilities,
-        //   browserName: 'safari',
-        //   browserVersion: '13.1',
-        //   platformName: 'macOS 10.15',
-        // }),
-        // sauceLabsLauncher({
-        //   ...sharedCapabilities,
-        //   browserName: 'firefox',
-        //   browserVersion: '80.0',
-        //   platformName: 'Windows 10',
-        // }),
-        // sauceLabsLauncher({
-        //   ...sharedCapabilities,
-        //   browserName: 'safari',
-        //   browserVersion: '12.0',
-        //   platformName: 'macOS 10.14',
-        // }),
-        sauceLabsLauncher({
-          ...sharedCapabilities,
-          browserName: 'internet explorer',
-          browserVersion: '11.0',
-          platformName: 'Windows 7',
-        }),
-      ],
-      concurrency: 5,
-      plugins: [legacyPlugin()],
-      browserStartTimeout: 1000 * 60 * 1,
-      testsStartTimeout: 1000 * 60 * 1,
-      testsFinishTimeout: 1000 * 60 * 1,
-    },
-    [
+  const runner = await runTests({
+    files: [
       resolve(__dirname, 'fixtures', 'a.js'),
       resolve(__dirname, 'fixtures', 'b.js'),
       resolve(__dirname, 'fixtures', 'c.js'),
@@ -77,7 +38,44 @@ it('runs tests on saucelabs', async function () {
       resolve(__dirname, 'fixtures', 'stage-4-features.js'),
       resolve(__dirname, 'fixtures', 'module-features.js'),
     ],
-  );
+    browsers: [
+      // sauceLabsLauncher({
+      //   ...sharedCapabilities,
+      //   browserName: 'chrome',
+      //   browserVersion: 'latest',
+      //   platformName: 'Windows 10',
+      // }),
+      // sauceLabsLauncher({
+      //   ...sharedCapabilities,
+      //   browserName: 'safari',
+      //   browserVersion: '13.1',
+      //   platformName: 'macOS 10.15',
+      // }),
+      // sauceLabsLauncher({
+      //   ...sharedCapabilities,
+      //   browserName: 'firefox',
+      //   browserVersion: '80.0',
+      //   platformName: 'Windows 10',
+      // }),
+      // sauceLabsLauncher({
+      //   ...sharedCapabilities,
+      //   browserName: 'safari',
+      //   browserVersion: '12.0',
+      //   platformName: 'macOS 10.14',
+      // }),
+      sauceLabsLauncher({
+        ...sharedCapabilities,
+        browserName: 'internet explorer',
+        browserVersion: '11.0',
+        platformName: 'Windows 7',
+      }),
+    ],
+    concurrency: 5,
+    plugins: [legacyPlugin()],
+    browserStartTimeout: 1000 * 60 * 1,
+    testsStartTimeout: 1000 * 60 * 1,
+    testsFinishTimeout: 1000 * 60 * 1,
+  });
 
   runner.sessions.all();
 });
